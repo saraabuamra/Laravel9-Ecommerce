@@ -7,7 +7,7 @@
                 <div class="col-md-12 grid-margin">
                     <div class="row">
                         <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                            <h3 class="font-weight-bold">Sections</h3>
+                            <h3 class="font-weight-bold">Categories</h3>
                             {{-- <h6 class="font-weight-normal mb-0">Update Admin Password</h6> --}}
                         </div>
                         <div class="col-12 col-xl-4">
@@ -60,14 +60,14 @@
                                 </button>
                             </div>
                         @endif
-                        <form class="forms-sample" @if (empty($section['id']))action="{{ url('admin/add-edit-section') }}"
-                            @else action="{{ url('admin/add-edit-section/'.$section['id']) }}" @endif  method="post" enctype="multipart/form-data">
+                        <form class="forms-sample" @if (empty($category['id']))action="{{ url('admin/add-edit-category') }}"
+                            @else action="{{ url('admin/add-edit-category/'.$category['id']) }}" @endif  method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="section_name">Section Name</label>
-                                <input type="text" class="form-control" id="section_name"
-                                     name="section_name" placeholder="Enter Section Name" @if (!empty($section['name']))
-                                     value="{{ $section['name'] }}" @else value="{{old('section->name')}}"
+                                <label for="category_name">Category Name</label>
+                                <input type="text" class="form-control" id="category_name"
+                                     name="category_name" placeholder="Enter Category Name" @if (!empty($category['category_name']))
+                                     value="{{ $category['category_name'] }}" @else value="{{old('category->category_name')}}"
                                     @endif required>
                             </div>
                             <button style="background-color: #4B49AC; border-color: #4B49AC;" type="submit" class="btn btn-primary mr-2">Submit</button>

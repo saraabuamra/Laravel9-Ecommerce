@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
 
        public function addEditCategory(Request $request,$id=null){
-        Category::put('page','categories');
+        Session::put('page','categories');
         if($id==""){
         $title = "Add Category";
         $category = new Category;
@@ -48,7 +48,9 @@ class CategoryController extends Controller
             $message = "Category updated successfully!"; 
         }
         if($request->isMethod('post')){
+            
             $data = $request->all();
+
             $validated = $request->validate([
                 'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
             ]);
