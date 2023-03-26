@@ -39,6 +39,24 @@
                 </ul>
             </div>
         </li> 
+        <li class="nav-item">
+            <a @if (Session::get('page')=="sections" || Session::get('page')=="categories"||
+            Session::get('page')=="products" || Session::get('page')=="filters") style="background-color:#4B49AC !important; 
+             color:white !important;" 
+                 @endif class="nav-link" data-toggle="collapse" href="#ui-catalogue" aria-expanded="false" aria-controls="ui-catalogue">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Catalogue Management</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-catalogue">
+                <ul class="nav flex-column sub-menu" style="background-color: white !important; color:#4B49AC !important;">
+                    <li class="nav-item"> <a @if (Session::get('page')=="products") style="background-color:#4B49AC !important; 
+                        color:white !important;" @else style="background-color:white !important; 
+                        color:#4B49AC !important;"
+                            @endif class="nav-link" href="{{ url('admin/products') }}">Products</a></li>
+                </ul>
+            </div>
+        </li>
         @else
         <li class="nav-item">
             <a  @if (Session::get('page')=="update-admin-password" || Session::get('page')=="update-admin-details") style="background-color:#4B49AC !important; 

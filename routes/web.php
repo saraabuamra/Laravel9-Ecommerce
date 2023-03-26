@@ -171,10 +171,36 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
 Route::namespace('App\Http\Controllers\Front')->group(function(){
   Route::get('/','IndexController@index');
+
+
     //listing|categories Routes
   $catUrl = Category::select('url')->where('status',1)->get()->pluck('url')->toArray();
   foreach ($catUrl as $key => $url){
    Route::match(['get','post'],'/'.$url,'ProductsController@listing');
   }
+
+  // Vendor Products
+  Route::get('/products/{vendorid}','ProductsController@vendorListing');
+
+  // Product Details Page
+  Route::get('/product/{id}','ProductsController@detail');
+
+  // Get Product Attribute Price
+  Route::post('get-product-price','ProductsController@getProductPrice');
+
+  // Vendor Login/Register
+  Route::get('vendor/login-register','VendorController@loginRegister');
+
+  //vendor Register
+  Route::post('vendor/register','VendorController@vendorRegister');
+
+  //Confirm Vendor Account
+  Route::get('vendor/confirm/{code}','VendorController@confirmVendor');
+
+  // Add to Cart Route
+  Route::post('cart/add','ProductsController@cartAdd');
+
+  // Cart Route
+  Route::get('/cart','ProductsController@cart');
 });
 

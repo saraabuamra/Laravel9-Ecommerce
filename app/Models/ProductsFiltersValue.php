@@ -9,4 +9,5 @@ class ProductsFiltersValue extends Model
 {
     use HasFactory;
 
+
 }

@@ -92,7 +92,7 @@
             <div class="row clearfix align-items-center">
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
-                        <a href="index.html">
+                        <a href="{{url('/')}}">
                             <img src="{{asset('front/images/main-logo/stack-developers-logo.png')}}" alt="Stack Developers" class="app-brand-logo">
                         </a>
                     </div>
