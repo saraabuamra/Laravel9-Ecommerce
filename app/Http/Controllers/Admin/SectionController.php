@@ -61,4 +61,6 @@ class SectionController extends Controller
         }
         return view('admin.sections.add_edit_section')->with(compact('title','section','message'));
        }
+
+      
 }

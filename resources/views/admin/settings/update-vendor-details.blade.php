@@ -125,7 +125,7 @@
                                @endif
                           </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="reset" class="btn btn-light">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
                                @endif
                           </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="reset" class="btn btn-light">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -326,7 +326,7 @@
                                     value="{{$vendorDetails['bank_ifsc_code']}}" name="bank_ifsc_code" placeholder="Enter Bank Ifsc Code" required>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="reset" class="btn btn-light">Cancel</button>
                         </form>
                     </div>
                 </div>
