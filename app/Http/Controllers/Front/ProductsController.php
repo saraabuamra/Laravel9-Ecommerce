@@ -233,6 +233,10 @@ class ProductsController extends Controller
             =>$session_id])->count();
          }
 
+         if($countProducts>0){
+            return redirect()->back()->with('error_message','Product already exists in Cart!');
+         }
+
          // Save Product in carts table
          $item = new Cart;
          $item->session_id = $session_id;
@@ -275,6 +279,8 @@ class ProductsController extends Controller
             'status'=>false,
             'message'=>'Product Stock is not available',
             'view'=>(String)View::make('front.products.cart_items')
+         ->with(compact('getCartItems')),
+         'headerview'=>(String)View::make('front.layout.header_cart_items')
          ->with(compact('getCartItems'))
          ]);  
       }
@@ -289,6 +295,8 @@ class ProductsController extends Controller
             'status'=>false,
             'message'=>'Product Size is not available. Please remove this Product and choose another one!',
             'view'=>(String)View::make('front.products.cart_items')
+         ->with(compact('getCartItems')),
+         'headerview'=>(String)View::make('front.layout.header_cart_items')
          ->with(compact('getCartItems'))
          ]);
       }
@@ -296,9 +304,13 @@ class ProductsController extends Controller
       //update the quantity
       Cart::where('id',$data['cartid'])->update(['quantity'=>$data['qty']]);
       $getCartItems = Cart::getCartItems();
+      $totalCartItems = totalCartItems();
       return response()->json([
          'status'=>true,
+         'totalCartItems'=>$totalCartItems,
          'view'=>(String)View::make('front.products.cart_items')
+      ->with(compact('getCartItems')),
+      'headerview'=>(String)View::make('front.layout.header_cart_items')
       ->with(compact('getCartItems'))
         ]);
     }
@@ -310,8 +322,12 @@ class ProductsController extends Controller
 
       Cart::where('id',$data['cartid'])->delete();
       $getCartItems = Cart::getCartItems();
+      $totalCartItems = totalCartItems();
       return response()->json([
+         'totalCartItems'=>$totalCartItems,
          'view'=>(String)View::make('front.products.cart_items')
+      ->with(compact('getCartItems')),
+      'headerview'=>(String)View::make('front.layout.header_cart_items')
       ->with(compact('getCartItems'))
       ]);
      }

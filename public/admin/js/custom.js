@@ -43,6 +43,7 @@ $(add_button).click(function(e){
     $('#sections').DataTable();
     $('#categories').DataTable();
     $('#brands').DataTable();
+    $('#coupons').DataTable();
     $('#products').DataTable();
     $('#banners').DataTable();
     $('#filters').DataTable();
@@ -353,7 +354,7 @@ $("#current_password").keyup(function(){
               }
               
             });
-      })
+      });
       //update image status
      $(document).on("click",".updateImageStatus",function(){
       var status = $(this).children("i").attr("status");
@@ -431,6 +432,49 @@ $("#current_password").keyup(function(){
                       }
                     }),
                     $("#brand-"+brand_id).html("<i style='font-size: 25px;color:#4B49AC;' class='mdi mdi-lock-open-outline' status='Active'></i>")
+                  }
+              },error:function(){
+                alert('Error');
+              }
+              
+            });
+      })
+
+         //update coupon status
+     $(document).on("click",".updateCouponStatus",function(){
+      var status = $(this).children("i").attr("status");
+      var coupon_id = $(this).attr("coupon_id");
+          $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              type: 'post',
+              url: '/admin/update-coupon-status',
+              data: {status:status,coupon_id:coupon_id},
+              success: function(resp){
+                  if(resp['status']==0){
+                    Swal.fire({
+                      title: 'This coupon is Not Available',
+                  
+                      showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                      },
+                      hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                      }
+                    }),
+                    $("#coupon-"+coupon_id).html("<i style='font-size: 25px;color:#4B49AC;' class='mdi mdi-lock' status='Inactive'></i>")
+                  }else if(resp['status']==1){
+                    Swal.fire({
+                      title: 'This coupon is Available',
+                      showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                      },
+                      hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                      }
+                    }),
+                    $("#coupon-"+coupon_id).html("<i style='font-size: 25px;color:#4B49AC;' class='mdi mdi-lock-open-outline' status='Active'></i>")
                   }
               },error:function(){
                 alert('Error');
@@ -523,7 +567,15 @@ $("#current_password").keyup(function(){
 		})
 	});
 
-  
+
+  //Show/Hide Coupon Field for Manual/Automatic
+  $('#ManualCoupon').click(function(){
+    $('#couponField').show();
+  });
+
+  $('#AutomaticCoupon').click(function(){
+    $('#couponField').hide();
+  });
 
    
 

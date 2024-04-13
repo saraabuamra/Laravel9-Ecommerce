@@ -85,7 +85,7 @@ class VendorController extends Controller
         $messageData = [
            'email' => $data['email'],
            'name' => $data['name'],
-           'code' => base64_encode($data['email']) 
+           'code' => base64_encode($data['email'])
         ];
 
         Mail::send('emails.vendor_confirmation', $messageData, function($message)use($email){

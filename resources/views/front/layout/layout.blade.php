@@ -35,10 +35,15 @@
     <link rel="stylesheet" href="{{asset('front/css/bundle.css')}}">
     <!-- Zoom -->
     <link rel="stylesheet" href="{{asset('front/css/easyzoom.css')}}">
+    <!-- Custom -->
+    <link rel="stylesheet" href="{{asset('front/css/custom.css')}}">
 </head>
 
 <body>
 
+    <div class="loader">
+        <img src="{{asset('front/images/loaders/loader.gif')}}" alt="loading..." >
+    </div>
 <!-- app -->
 <div id="app">
    @include('front.layout.header')

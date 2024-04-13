@@ -156,13 +156,21 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
           //Banners
            Route::get('banners','BannersController@banners');
-             //Update banner Status
+          //Update banner Status
           Route::post('update-banner-status','BannersController@updateBannerStatus');
           //delete banner
           Route::get('delete-banner/{id}','BannersController@deleteBanner');
           //add-edit-banner
           Route::match(['get', 'post'],'add-edit-banner/{id?}','BannersController@addEditBanner');
-         
+
+          //Coupons
+          Route::get('coupons','CouponsController@coupons');
+           //Update coupon Status
+           Route::post('update-coupon-status','CouponsController@updateCouponStatus');
+           //delete coupon
+           Route::get('delete-coupon/{id}','CouponsController@deleteCoupon');
+          //add-edit-coupon
+          Route::match(['get', 'post'],'add-edit-coupon/{id?}','CouponsController@addEditCoupon');
 
 
     });
@@ -202,14 +210,4 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
   // Cart Route
   Route::get('/cart','ProductsController@cart');
-
-  //Update Cart Item Quantity
-  Route::post('cart/update','ProductsController@cartUpdate');
-
-  //Delete Cart Item
-  Route::post('cart/delete','ProductsController@cartDelete');
-
-  // User Login/Register
-  Route::get('user/login-register','UserController@loginRegister');
 });
-

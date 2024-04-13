@@ -64,6 +64,7 @@
     {{-- custom Admin js --}}
     <script src="{{ asset('admin/js/custom.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </body>
 
 </html>

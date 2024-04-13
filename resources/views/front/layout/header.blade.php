@@ -1,6 +1,9 @@
  <?php
  use App\Models\Section;
+ use App\Models\Product;
  $sections = Section::sections();
+ $totalCartItems = totalCartItems();
+ $getCartItems = getCartItems();
  ?>
  <!-- Header -->
  <header>
@@ -25,12 +28,12 @@
             <nav>
                 <ul class="secondary-nav g-nav">
                     <li>
-                        <a>My Account
+                        <a>@if (Auth::check())My Account @else Login/Register @endif 
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
                         <ul class="g-dropdown" style="width:200px">
                             <li>
-                                <a href="cart.html">
+                                <a href="{{url('/cart')}}">
                                     <i class="fas fa-cog u-s-m-r-9"></i>
                                     My Cart</a>
                             </li>
@@ -39,21 +42,34 @@
                                     <i class="far fa-heart u-s-m-r-9"></i>
                                     My Wishlist</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="checkout.html">
                                     <i class="far fa-check-circle u-s-m-r-9"></i>
                                     Checkout</a>
+                            </li> --}}
+                            @if (Auth::check())
+                            <li>
+                                <a href="{{url('user/account')}}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    My Account</a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="{{url('user/logout')}}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    Logout</a>
+                            </li>
+                            @else
+                            <li>
+                                <a href="{{url('user/login-register')}}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Customer Login</a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="{{url('vendor/login-register')}}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Vendor Login</a>
                             </li>
+                            @endif
                         </ul>
                     </li>
                     <li>
@@ -133,8 +149,9 @@
                             <li>
                                 <a id="mini-cart-trigger">
                                     <i class="ion ion-md-basket"></i>
-                                    <span class="item-counter">4</span>
-                                    <span class="item-price">$220.00</span>
+                                    <span class="item-counter totalCartItems">{{$totalCartItems}}</span>
+                                    @php $total_price = 0 @endphp
+                                    <span class="item-price">${{$total_price}}</span>
                                 </a>
                             </li>
                         </ul>
@@ -158,55 +175,8 @@
     </div>
     <!-- Responsive-Buttons /- -->
     <!-- Mini Cart -->
-    <div class="mini-cart-wrapper">
-        <div class="mini-cart">
-            <div class="mini-cart-header">
-                YOUR CART
-                <button type="button" class="button ion ion-md-close" id="mini-cart-close"></button>
-            </div>
-            <ul class="mini-cart-list">
-                <li class="clearfix">
-                    <a href="single-product.html">
-                        <img src="{{asset('front/images/product/product@1x.jpg')}}" alt="Product">
-                        <span class="mini-item-name">Product name</span>
-                        <span class="mini-item-price">$100.00</span>
-                        <span class="mini-item-quantity"> x 1 </span>
-                    </a>
-                </li>
-                <li class="clearfix">
-                    <a href="single-product.html">
-                        <img src="{{asset('front/images/product/product@1x.jpg')}}" alt="Product">
-                        <span class="mini-item-name">Product name</span>
-                        <span class="mini-item-price">$100.00</span>
-                        <span class="mini-item-quantity"> x 1 </span>
-                    </a>
-                </li>
-                <li class="clearfix">
-                    <a href="single-product.html">
-                        <img src="{{asset('front/images/product/product@1x.jpg')}}" alt="Product">
-                        <span class="mini-item-name">Product name</span>
-                        <span class="mini-item-price">$100.00</span>
-                        <span class="mini-item-quantity"> x 1 </span>
-                    </a>
-                </li>
-                <li class="clearfix">
-                    <a href="single-product.html">
-                        <img src="{{asset('front/images/product/product@1x.jpg')}}" alt="Product">
-                        <span class="mini-item-name">Product name</span>
-                        <span class="mini-item-price">$100.00</span>
-                        <span class="mini-item-quantity"> x 1 </span>
-                    </a>
-                </li>
-            </ul>
-            <div class="mini-shop-total clearfix">
-                <span class="mini-total-heading float-left">Total:</span>
-                <span class="mini-total-price float-right">$400.00</span>
-            </div>
-            <div class="mini-action-anchors">
-                <a href="cart.html" class="cart-anchor">View Cart</a>
-                <a href="checkout.html" class="checkout-anchor">Checkout</a>
-            </div>
-        </div>
+    <div id="appendHeaderCartItems">
+    @include('front.layout.header_cart_items')
     </div>
     <!-- Mini Cart /- -->
     <!-- Bottom-Header -->
@@ -223,7 +193,7 @@
                         <nav>
                             <div class="v-wrapper">
                                 <ul class="v-list animated fadeIn">
-                                    @foreach ($sections as $section )    
+                                    @foreach ($sections as $section )   
                                     @if (count($section['categories'])>0)
                                     <li class="js-backdrop">
                                         <a href="javascript:;">
