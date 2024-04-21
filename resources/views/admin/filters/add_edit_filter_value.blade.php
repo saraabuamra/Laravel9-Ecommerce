@@ -60,15 +60,16 @@
                                 </button>
                             </div>
                         @endif
-                        <form class="forms-sample" @if (empty($filter['id'])) action="{{ url('admin/add-edit-filter-value') }}"
-                            @else action="{{ url('admin/add-edit-filter-value/'.$filter['id']) }}" @endif  method="post" enctype="multipart/form-data">
+                        <form class="forms-sample" @if (empty($filters_value['id'])) action="{{ url('admin/add-edit-filter-value') }}"
+                            @else action="{{ url('admin/add-edit-filter-value/'.$filters_value['id']) }}" @endif  method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="filter_id">Select Filter</label>
                                  <select name="filter_id" id="filter_id" class="form-control text-dark">
                                      <option value="">Select</option>
                                      @foreach ($filters as $filter)  
-                                     <option value="{{$filter['id']}}">
+                                     <option @if (!empty($filters_value['filter_id']==$filter['id']))
+                                     selected @endif value="{{$filter['id']}}" >
                                      {{$filter['filter_name']}}</option>
                                      @endforeach
                                  </select>
@@ -76,8 +77,8 @@
                             <div class="form-group">
                                 <label for="filter_value">Filter Value</label>
                                 <input type="text" class="form-control" id="filter_value"
-                                     name="filter_value" placeholder="Enter Filter Value" @if (!empty($filter['filter_value']))
-                                     value="{{ $filter['filter_value'] }}" @else value="{{old('filter_value')}}"
+                                     name="filter_value" placeholder="Enter Filter Value" @if (!empty($filters_value['filter_value']))
+                                     value="{{ $filters_value['filter_value'] }}" @else value="{{old('filter_value')}}"
                                     @endif required>
                             </div>
                             <button style="background-color: #4B49AC; border-color: #4B49AC;" type="submit" class="btn btn-primary mr-2">Submit</button>

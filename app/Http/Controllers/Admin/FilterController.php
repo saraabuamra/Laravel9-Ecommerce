@@ -65,10 +65,12 @@ class FilterController extends Controller
         if($id==""){
         $title = "Add Filter Columns";
         $filter = new ProductsFilter;
+        $cat_ids = array();
         $message = "Filter added successfully!";
         }else{
             $title = "Edit Filter Columns";
             $filter = ProductsFilter::find($id);
+            $cat_ids = explode(',',$filter['cat_ids']);
             $message = "Filter updated successfully!"; 
         }
 
@@ -91,18 +93,18 @@ class FilterController extends Controller
 
             return redirect('admin/filters')->with('success_message',$message);
         }
-        return view('admin.filters.add_edit_filter')->with(compact('title','filter','categories','message'));
+        return view('admin.filters.add_edit_filter')->with(compact('cat_ids','title','filter','categories','message'));
        }
 
        public function addEditFilterValue(Request $request,$id=null){
         Session::put('page','filters');
         if($id==""){
         $title = "Add Filter Value";
-        $filter = new ProductsFiltersValue;
+        $filters_value = new ProductsFiltersValue;
         $message = "Filter Value added successfully!";
         }else{
             $title = "Edit Filter Value";
-            $filter = ProductsFiltersValue::find($id);
+            $filters_value = ProductsFiltersValue::find($id);
             $message = "Filter Value updated successfully!"; 
         }
 
@@ -110,10 +112,10 @@ class FilterController extends Controller
             $data = $request->all();
             
             //save Filter values details in product_filters_values table
-            $filter->filter_id = $data['filter_id'];
-            $filter->filter_value = $data['filter_value'];
-            $filter->status = 1;
-            $filter->save();
+            $filters_value->filter_id = $data['filter_id'];
+            $filters_value->filter_value = $data['filter_value'];
+            $filters_value->status = 1;
+            $filters_value->save();
 
 
             return redirect('admin/filters-values')->with('success_message',$message);
@@ -121,7 +123,7 @@ class FilterController extends Controller
         // Get Filters
         $filters = ProductsFilter::where('status',1)->get()->toArray();
 
-        return view('admin.filters.add_edit_filter_value')->with(compact('title','filter','filters','message'));
+        return view('admin.filters.add_edit_filter_value')->with(compact('title','filters_value','filters','message'));
        }
 
        public function categoryFilters(Request $request){

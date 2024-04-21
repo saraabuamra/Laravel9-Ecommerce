@@ -67,16 +67,15 @@
                                 <label for="cat_ids">Select Category</label>
                                  <select name="cat_ids[]" id="cat_ids" class="form-control text-dark"
                                  multiple  style="height: 200px">
-                                     <option value="">Select</option>
                                      @foreach ($categories as $section)
                                      <optgroup label="{{$section['name']}}"></optgroup>
                                      @foreach ($section['categories'] as $category)  
-                                     <option @if (!empty($filter['category_id']==$category['id']))
-                                         selected @endif value="{{$category['id']}}">&nbsp;&nbsp;&nbsp;
-                                        ---&nbsp;{{$category['category_name']}}</option>
+                                     <option @if (in_array($category['id'],$cat_ids)) selected                                          
+                                     @endif value="{{$category['id']}}">&nbsp;&nbsp;&nbsp;
+                                        ---&nbsp;{{$category['category_name']}} </option>
                                      @foreach ($category['subcategories'] as $subcategory)  
-                                     <option @if (!empty($filter['category_id']==$subcategory['id']))
-                                     selected @endif value="{{$subcategory['id']}}">&nbsp;&nbsp;&nbsp;
+                                     <option @if (in_array($subcategory['id'],$cat_ids)) selected                                          
+                                     @endif value="{{$subcategory['id']}}">&nbsp;&nbsp;&nbsp;
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;{{$subcategory['category_name']}}</option>
                                      @endforeach
                                      @endforeach

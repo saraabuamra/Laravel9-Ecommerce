@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.5",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
+        "laravel/helpers": "^1.7",
         "laravel/nexmo-notification-channel": "^3.2",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",

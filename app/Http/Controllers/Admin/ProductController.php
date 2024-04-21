@@ -76,13 +76,25 @@ class ProductController extends Controller
      if($request->isMethod('post')){
         $data = $request->all();
 
-        $validated = $request->validate([
+        $rules = [
           'category_id' => 'required',
-          'product_name' => 'required|regex:/^[\pL\s\-]+$/u',
+          'product_name' => 'required',
           'product_code' => 'required|regex:/^\w+$/',
           'product_price' => 'required|numeric',
           'product_color' => 'required|regex:/^[\pL\s\-]+$/u',
-      ]);
+      ];
+      $customMessages = [
+        'category_id.required' => 'Category is required',
+        'product_name.required' => 'Product Name is required',
+        'product_name.regex' => 'Valid Product Name is required',
+        'product_code.required' => 'Product Code is required',
+        'product_code.regex' => 'Valid Product Code is required',
+        'product_price.required' => 'Product Price is required',
+        'product_price.numeric' => 'Valid Product Price is required',
+        'product_color.required' => 'Product Color is required',
+        'product_color.regex' => 'Valid Product Color is required',
+    ];
+    $this->validate($request,$rules,$customMessages);
        //uplode product image after resize small: 250x250 medium: 500x500 large: 1000x1000
        if($request->hasFile('product_image')){
         $image_tmp = $request->file('product_image');

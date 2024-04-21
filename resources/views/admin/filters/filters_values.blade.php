@@ -78,7 +78,7 @@ use App\Models\ProductsFilter;
                             @endif
                       </td>
                       <td>
-                       <a href="{{url('admin/add-edit-filter/'.$filter['id'])}}">
+                       <a href="{{url('admin/add-edit-filter-value/'.$filter['id'])}}">
                         <i style="font-size: 25px ;color:#4B49AC;" 
                         class="mdi mdi-pencil-box"></i> </a>
                             <a href="javascript:void(0)" module="filter" class="confirmDelete" moduleid="{{$filter['id']}}">
